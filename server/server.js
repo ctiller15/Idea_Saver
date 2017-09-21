@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 var expressMongoDb = require('express-mongo-db');
 // var MongoClient = require('mongodb').MongoClient;
 
 // Connecting with express-mongodb
 var url = 'mongodb://localhost:27017/idea_saver';
 app.use(expressMongoDb(url));;
+
+// Using our bodyParser
+app.use(bodyParser.json());
 
 // // Connecting to server
 // MongoClient.connect(url, function(err, db) {
@@ -16,17 +20,17 @@ app.use(expressMongoDb(url));;
 
 
 // CREATE
-var createIdeas = function(db, cb){
+var createIdeas = function(db, reqBod, cb){
 	var collection = db.collection('ideas');
 	// Inserting a document
 	collection.insertOne(
 		{	
-			title: "First Idea",
-			text: "This is the very first idea saved to the database!"
+			title: reqBod.title,
+			text: reqBod.text
 		}
 	, function(err, result) {
 		console.log("Inserted a document into the collection.");
-		// console.log(result)
+		console.log(result.ops);
 	});
 }
 
@@ -92,7 +96,7 @@ app.get('/ideas/new', (req,res) => {
 // Create a new idea, then redirect.
 
 app.post('/ideas', (req, res) => {	
-	createIdeas(req.db);
+	createIdeas(req.db, req.body);
 	res.send("Idea created, redirecting...");
 });
 
