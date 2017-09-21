@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 var expressMongoDb = require('express-mongo-db');
+var ObjectID = require('mongodb').ObjectID;
 // var MongoClient = require('mongodb').MongoClient;
 
 // Connecting with express-mongodb
@@ -35,14 +36,13 @@ var createIdeas = function(db, reqBod, cb){
 }
 
 // READ
-var readIdeas = function(db, cb){
+var readIdeas = function(db, id, cb){
 	var collection = db.collection('ideas');
 	// reading a document
-	collection.findOne(
-		{}
-	, function(err, result) {
-		console.log("Finding a document.");
-		console.log(result);
+	collection.find(
+		{ "_id" : new ObjectID("59c32af6e57db37185fc4f1d")})
+		.toArray(function(err, docs) {
+			console.log(docs);
 	});
 }
 
@@ -103,7 +103,7 @@ app.post('/ideas', (req, res) => {
 // Show info about one idea.
 
 app.get('/ideas/:id', (req, res) => {
-	readIdeas(req.db);
+	readIdeas(req.db, req.params.id);
 	res.send("This is the info on ONE idea.")
 });
 
