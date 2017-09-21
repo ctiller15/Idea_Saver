@@ -39,23 +39,40 @@ var createIdeas = function(db, reqBod, cb){
 var readIdeas = function(db, id, cb){
 	var collection = db.collection('ideas');
 	// reading a document
-	collection.find(
-		{ "_id" : new ObjectID("59c32af6e57db37185fc4f1d")})
-		.toArray(function(err, docs) {
-			console.log(docs);
-	});
+	collection.findOne(
+		{ "_id" : new ObjectID(id)}, function(err, doc) {
+			console.log(doc);
+			}
+	);
 }
 
+// Using find() instead of findOne()
+// // READ
+// var readIdeas = function(db, id, cb){
+// 	var collection = db.collection('ideas');
+// 	// reading a document
+// 	collection.find(
+// 		{ "_id" : new ObjectID("59c32af6e57db37185fc4f1d")})
+// 		.toArray(function(err, docs) {
+// 			console.log(docs);
+// 	});
+// }
+
 // UPDATE
-var updateIdeas = function(db, cb){
+var updateIdeas = function(db, reqBod, id, cb){
 	var collection = db.collection('ideas');
 	// updating a document
-	collection.findOneAndUpdate({}
-		, {$set: {text: "This text has been updated."}}
+	collection.findOneAndUpdate({ "_id" : new ObjectID(id) }
+		, {$set: 
+			{	
+				title: reqBod.title,
+				text: reqBod.text
+			}
+		}
 		, {returnOriginal: false}
 	, function(err, result){
 		console.log("updating a document...");
-		console.log(result);
+		console.log(result.value);
 	})
 }
 
@@ -104,17 +121,17 @@ app.post('/ideas', (req, res) => {
 
 app.get('/ideas/:id', (req, res) => {
 	readIdeas(req.db, req.params.id);
-	res.send("This is the info on ONE idea.")
+	res.send("This is the info on ONE idea.");
 });
 
 // Edit form for one idea.
 app.get('/ideas/:id/edit', (req, res) => {
-	res.send("This is the edit form for one idea.")
+	res.send("This is the edit form for one idea.");
 });
 
 // Update one idea.
 app.put('/ideas/:id', (req, res) => {
-	updateIdeas(req.db);
+	updateIdeas(req.db, req.body, req.params.id);
 	res.send("This is the update route for one idea.");
 });
 
