@@ -77,11 +77,11 @@ var updateIdeas = function(db, reqBod, id, cb){
 }
 
 // DESTROY
-var destroyIdeas = function(db, cb){
+var destroyIdeas = function(db, id, cb){
 	var collection = db.collection('ideas');
 	// deleting a document.
 	collection.findOneAndDelete(
-		{}
+		{ "_id" : new ObjectID(id) }
 	, function(err, result) {
 		console.log("deleting a document...");
 		console.log(result);
@@ -137,7 +137,7 @@ app.put('/ideas/:id', (req, res) => {
 
 // Delete the idea.
 app.delete('/ideas/:id', (req, res) => {
-	destroyIdeas(req.db);
+	destroyIdeas(req.db, req.params.id);
 	res.send("This is the delete route for one idea.");
 });
 
