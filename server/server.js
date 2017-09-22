@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
 // var expressMongoDb = require('express-mongo-db');
-// var ObjectID = require('mongodb').ObjectID;
+var ObjectID = require('mongodb').ObjectID;
 // var MongoClient = require('mongodb').MongoClient;
 
 const app = express();
@@ -43,9 +43,12 @@ var createIdeas = function(reqBod, cb){
 		text: reqBod.text
 	});
 
+	// Promise isn't too useful without the response object.
 	idea.save().then((doc) => {
+		console.log(doc);
 		res.send(doc);
 	}, (err) => {
+		console.log(err);
 		res.status(400).send(err);
 	});
 	// collection.insertOne(
@@ -60,14 +63,22 @@ var createIdeas = function(reqBod, cb){
 }
 
 // READ
-var readIdeas = function(db, id, cb){
-	var collection = db.collection('ideas');
+var readIdeas = function(id, cb){
 	// reading a document
-	collection.findOne(
-		{ "_id" : new ObjectID(id)}, function(err, doc) {
-			console.log(doc);
-			}
-	);
+	Idea.findOne({ "_id" : new ObjectID(id)}).then((idea) => {
+		if(idea){
+			console.log(idea);
+		} else if (!idea){
+			console.log("idea not found");
+		}
+	}, (err) => {
+		console.log(err);
+	});
+	// collection.findOne(
+	// 	{ "_id" : new ObjectID(id)}, function(err, doc) {
+	// 		console.log(doc);
+	// 		}
+	// );
 }
 
 // Using find() instead of findOne()
@@ -138,13 +149,13 @@ app.get('/ideas/new', (req,res) => {
 
 app.post('/ideas', (req, res) => {	
 	createIdeas(req.body);
-	// res.send("Idea created, redirecting...");
+	res.send("Idea created, redirecting...");
 });
 
 // Show info about one idea.
 
 app.get('/ideas/:id', (req, res) => {
-	readIdeas(req.db, req.params.id);
+	readIdeas(req.params.id);
 	res.send("This is the info on ONE idea.");
 });
 
