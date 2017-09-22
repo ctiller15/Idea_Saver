@@ -1,13 +1,16 @@
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
+
 const bodyParser = require('body-parser');
-var expressMongoDb = require('express-mongo-db');
-var ObjectID = require('mongodb').ObjectID;
+// var expressMongoDb = require('express-mongo-db');
+// var ObjectID = require('mongodb').ObjectID;
 // var MongoClient = require('mongodb').MongoClient;
 
+const app = express();
+
 // Connecting with express-mongodb
-var url = 'mongodb://localhost:27017/idea_saver';
-app.use(expressMongoDb(url));;
+// var url = 'mongodb://localhost:27017/idea_saver';
+// app.use(expressMongoDb(url));;
 
 // Using our bodyParser
 app.use(bodyParser.json());
@@ -19,20 +22,41 @@ app.use(bodyParser.json());
 // 	db.close();
 // });
 
+mongoose.connect('mongodb://localhost:27017/idea_saver');
+
+var ideaSchema = mongoose.Schema({
+	title: String,
+	category: String,
+	text: String
+});
+
+var Idea = mongoose.model('Idea', ideaSchema);
+
 
 // CREATE
-var createIdeas = function(db, reqBod, cb){
-	var collection = db.collection('ideas');
+var createIdeas = function(reqBod, cb){
+	// var collection = db.collection('ideas');
 	// Inserting a document
-	collection.insertOne(
-		{	
-			title: reqBod.title,
-			text: reqBod.text
-		}
-	, function(err, result) {
-		console.log("Inserted a document into the collection.");
-		console.log(result.ops);
+	var idea = new Idea({
+		title: reqBod.title,
+		category: reqBod.category,
+		text: reqBod.text
 	});
+
+	idea.save().then((doc) => {
+		res.send(doc);
+	}, (err) => {
+		res.status(400).send(err);
+	});
+	// collection.insertOne(
+	// 	{	
+	// 		title: reqBod.title,
+	// 		text: reqBod.text
+	// 	}
+	// , function(err, result) {
+	// 	console.log("Inserted a document into the collection.");
+	// 	console.log(result.ops);
+	// });
 }
 
 // READ
@@ -113,8 +137,8 @@ app.get('/ideas/new', (req,res) => {
 // Create a new idea, then redirect.
 
 app.post('/ideas', (req, res) => {	
-	createIdeas(req.db, req.body);
-	res.send("Idea created, redirecting...");
+	createIdeas(req.body);
+	// res.send("Idea created, redirecting...");
 });
 
 // Show info about one idea.
