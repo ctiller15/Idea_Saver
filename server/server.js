@@ -3,12 +3,17 @@
 const express = require('express');
 const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const hbs = require('hbs');
 
 // Schemas and functions
 var ObjectID = require('mongodb').ObjectID;
 const {Idea} = require('../models/idea.js');
 
 const app = express();
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + './../views/partials');
 
 // Using our bodyParser
 app.use(bodyParser.json());
@@ -86,13 +91,13 @@ var destroyIdeas = function(id, cb){
 // Index
 
 app.get('/', (req, res) => {
-	res.send("This is the landing page");
+	res.render('home.hbs');
 });
 
 // AUTH routes
 // show sign up form
 app.get("/register", (req, res) => {
-	res.send("Welcome to the registration page!");
+	res.render('register.hbs');
 });
 
 // handle user sign up
@@ -103,7 +108,7 @@ app.post("/register", (req, res) => {
 // LOGIN routes
 // render login form
 app.get("/login", (req, res) => {
-	res.send("This is the login form!");
+	res.render('login.hbs');
 });
 
 // Login logic

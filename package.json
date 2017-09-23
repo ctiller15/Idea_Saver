@@ -12,8 +12,11 @@
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "express-mongo-db": "^2.0.3",
+    "hbs": "^4.0.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.12",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.2.1"
   }
 }
