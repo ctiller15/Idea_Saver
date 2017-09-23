@@ -13,6 +13,7 @@
     "express": "^4.15.4",
     "express-mongo-db": "^2.0.3",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.11.12"
+    "mongoose": "^4.11.12",
+    "passport": "^0.4.0"
   }
 }

@@ -1,7 +1,10 @@
+// Libraries
+
 const express = require('express');
 const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
 
+// Schemas and functions
 var ObjectID = require('mongodb').ObjectID;
 const {Idea} = require('../models/idea.js');
 
@@ -84,6 +87,33 @@ var destroyIdeas = function(id, cb){
 
 app.get('/', (req, res) => {
 	res.send("This is the landing page");
+});
+
+// AUTH routes
+// show sign up form
+app.get("/register", (req, res) => {
+	res.send("Welcome to the registration page!");
+});
+
+// handle user sign up
+app.post("/register", (req, res) => {
+	res.send("You've officially registered!");
+});
+
+// LOGIN routes
+// render login form
+app.get("/login", (req, res) => {
+	res.send("This is the login form!");
+});
+
+// Login logic
+app.post("/login", (req, res) => {
+	res.send("You've logged in!");
+});
+
+// logout
+app.post("/logout", (req, res) => {
+	res.send("You've logged out!");
 });
 
 // List all ideas
