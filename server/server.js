@@ -113,15 +113,15 @@ var updateIdeas = function(reqBod, id, cb){
 }
 
 // DESTROY
-var destroyIdeas = function(db, id, cb){
-	var collection = db.collection('ideas');
+var destroyIdeas = function(id, cb){
 	// deleting a document.
-	collection.findOneAndDelete(
+	Idea.findOneAndRemove(
 		{ "_id" : new ObjectID(id) }
-	, function(err, result) {
-		console.log("deleting a document...");
-		console.log(result);
-	})
+	).then((idea) => {
+		console.log(idea);
+	}, (err) => {
+		console.log(err);
+	});
 }
 
 
@@ -173,7 +173,7 @@ app.put('/ideas/:id', (req, res) => {
 
 // Delete the idea.
 app.delete('/ideas/:id', (req, res) => {
-	destroyIdeas(req.db, req.params.id);
+	destroyIdeas(req.params.id);
 	res.send("This is the delete route for one idea.");
 });
 
