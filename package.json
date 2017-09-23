@@ -12,6 +12,7 @@
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "express-mongo-db": "^2.0.3",
+    "express-session": "^1.15.5",
     "hbs": "^4.0.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.12",

@@ -10,6 +10,7 @@ const hbs = require('hbs');
 // Schemas and functions
 var ObjectID = require('mongodb').ObjectID;
 const {Idea} = require('../models/idea.js');
+const {User} = require('../models/user.js');
 
 const app = express();
 app.set('view engine', 'hbs');
@@ -17,6 +18,25 @@ hbs.registerPartials(__dirname + './../views/partials');
 
 // Using our bodyParser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+// Getting passport together.
+app.use(require('express-session')({
+	secret: 'Stanley is quiet and Golden is energetic',
+	resave: false,
+	saveuninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// use static authenticate method of model in LocalStrategy
+passport.use(new LocalStrategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 // CREATE
 var createIdeas = function(reqBod, cb){
