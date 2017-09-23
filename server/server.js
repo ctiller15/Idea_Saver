@@ -94,21 +94,22 @@ var readIdeas = function(id, cb){
 // }
 
 // UPDATE
-var updateIdeas = function(db, reqBod, id, cb){
-	var collection = db.collection('ideas');
+var updateIdeas = function(reqBod, id, cb){
 	// updating a document
-	collection.findOneAndUpdate({ "_id" : new ObjectID(id) }
+	Idea.findOneAndUpdate({ "_id" : new ObjectID(id) }
 		, {$set: 
 			{	
 				title: reqBod.title,
+				category: reqBod.category,
 				text: reqBod.text
 			}
 		}
-		, {returnOriginal: false}
-	, function(err, result){
-		console.log("updating a document...");
-		console.log(result.value);
-	})
+		, {new: true}
+	).then((idea) => {
+		console.log(idea);
+	}, (err) => {
+		console.log(err);
+	});
 }
 
 // DESTROY
@@ -166,7 +167,7 @@ app.get('/ideas/:id/edit', (req, res) => {
 
 // Update one idea.
 app.put('/ideas/:id', (req, res) => {
-	updateIdeas(req.db, req.body, req.params.id);
+	updateIdeas(req.body, req.params.id);
 	res.send("This is the update route for one idea.");
 });
 
