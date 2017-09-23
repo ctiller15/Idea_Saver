@@ -1,37 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
+const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
-// var expressMongoDb = require('express-mongo-db');
+
 var ObjectID = require('mongodb').ObjectID;
-// var MongoClient = require('mongodb').MongoClient;
+const {Idea} = require('../models/idea.js');
 
 const app = express();
 
-// Connecting with express-mongodb
-// var url = 'mongodb://localhost:27017/idea_saver';
-// app.use(expressMongoDb(url));;
-
 // Using our bodyParser
 app.use(bodyParser.json());
-
-// // Connecting to server
-// MongoClient.connect(url, function(err, db) {
-// 	console.log("Connected to server successfully");
-
-// 	db.close();
-// });
-
-mongoose.connect('mongodb://localhost:27017/idea_saver');
-
-var ideaSchema = mongoose.Schema({
-	title: String,
-	category: String,
-	text: String
-});
-
-var Idea = mongoose.model('Idea', ideaSchema);
-
 
 // CREATE
 var createIdeas = function(reqBod, cb){
@@ -51,15 +28,7 @@ var createIdeas = function(reqBod, cb){
 		console.log(err);
 		res.status(400).send(err);
 	});
-	// collection.insertOne(
-	// 	{	
-	// 		title: reqBod.title,
-	// 		text: reqBod.text
-	// 	}
-	// , function(err, result) {
-	// 	console.log("Inserted a document into the collection.");
-	// 	console.log(result.ops);
-	// });
+
 }
 
 // READ
@@ -74,24 +43,7 @@ var readIdeas = function(id, cb){
 	}, (err) => {
 		console.log(err);
 	});
-	// collection.findOne(
-	// 	{ "_id" : new ObjectID(id)}, function(err, doc) {
-	// 		console.log(doc);
-	// 		}
-	// );
 }
-
-// Using find() instead of findOne()
-// // READ
-// var readIdeas = function(db, id, cb){
-// 	var collection = db.collection('ideas');
-// 	// reading a document
-// 	collection.find(
-// 		{ "_id" : new ObjectID("59c32af6e57db37185fc4f1d")})
-// 		.toArray(function(err, docs) {
-// 			console.log(docs);
-// 	});
-// }
 
 // UPDATE
 var updateIdeas = function(reqBod, id, cb){
