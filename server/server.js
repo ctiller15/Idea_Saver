@@ -157,14 +157,14 @@ app.get("/logout", (req, res) => {
 
 // List all ideas
 
-app.get('/ideas', (req, res) => {
-	res.send("This is the ideas page");
+app.get('/ideas', checkAuthentication, (req, res) => {
+	res.render('ideas.hbs');
 });
 
 // Show new idea form.
 
 app.get('/ideas/new', (req,res) => {
-	res.send("This is the new ideas form.");
+	res.render('new_idea.hbs');
 });
 
 // Create a new idea, then redirect.
