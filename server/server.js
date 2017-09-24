@@ -5,12 +5,14 @@ const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const passportLocalMongoose = require('passport-local-mongoose');
 const hbs = require('hbs');
 
 // Schemas and functions
 var ObjectID = require('mongodb').ObjectID;
 const {Idea} = require('../models/idea.js');
-const {User} = require('../models/user.js');
+// Why does this work?
+const User = require('../models/user.js');
 
 const app = express();
 app.set('view engine', 'hbs');
@@ -24,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
 	secret: 'Stanley is quiet and Golden is energetic',
 	resave: false,
-	saveuninitialized: false
+	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -122,7 +124,15 @@ app.get("/register", (req, res) => {
 
 // handle user sign up
 app.post("/register", (req, res) => {
-	res.send("You've officially registered!");
+	User.register(new User({username: req.body.username}) , req.body.password, function(err, user){
+		if(err){
+			console.log(err);
+			return res.render("/register");
+		}
+		passport.authenticate('local')(req, res, function(){
+			res.redirect("/ideas");
+		});
+	});
 });
 
 // LOGIN routes
@@ -132,13 +142,17 @@ app.get("/login", (req, res) => {
 });
 
 // Login logic
-app.post("/login", (req, res) => {
-	res.send("You've logged in!");
+app.post("/login", passport.authenticate("local", {
+	successRedirect: "/ideas",
+	failureRedirect: "/login"
+}), (req, res) => {
+	// nothing to see here!
 });
 
 // logout
-app.post("/logout", (req, res) => {
-	res.send("You've logged out!");
+app.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect("/");
 });
 
 // List all ideas
@@ -183,6 +197,15 @@ app.delete('/ideas/:id', (req, res) => {
 	destroyIdeas(req.params.id);
 	res.send("This is the delete route for one idea.");
 });
+
+function checkAuthentication(req, res, next){
+	if(req.isAuthenticated()){
+		// If user is logged in, returns true.
+		return next();
+	} else{
+		res.redirect("/login");
+	}
+}
 
 app.listen(3000, function() {
 	console.log('listening on 3000')
