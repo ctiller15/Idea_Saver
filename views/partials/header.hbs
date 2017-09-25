@@ -4,15 +4,21 @@
 	<title>Idea Saver App</title>
 </head>
 <body>
+	<h1>{{ currentUser.username}}</h1>
 	<nav>
 		<ul>
-			<li><a href="./register">register</a></li>
-			<li><a href="./login">login</a></li>
-			<li><a href="./ideas">ideas</a></li>
-			<li><a href="./ideas/new">create</a></li>
-			<li><a href="./logout">logout</a></li>
-			<li><a href="./logout">logout</a></li>
-			<li><a href="./logout">logout</a></li>
+			{{!-- If no user --}}
+			{{#unless currentUser}}
+				<li><a href="/register">register</a></li>
+				<li><a href="/login">login</a></li>
+			{{else}}
+			{{!-- Else --}}
+				<li>Currently signed in as {{ currentUser.username}}</li>
+				<li><a href="/logout">logout</a></li>
+			{{/unless}}
+			<li><a href="/ideas">ideas</a></li>
+			<li><a href="/ideas/new">create</a></li>
+
 		</ul>
 	</nav>
 

@@ -22,7 +22,7 @@ hbs.registerPartials(__dirname + './../views/partials');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Getting passport together.
+// PASSPORT CONFIGURATION
 app.use(require('express-session')({
 	secret: 'Stanley is quiet and Golden is energetic',
 	resave: false,
@@ -38,7 +38,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
 
 // CREATE
 var createIdeas = function(reqBod, cb){
@@ -115,8 +118,9 @@ var destroyIdeas = function(id, cb){
 app.get('/', (req, res) => {
 	res.render('home.hbs');
 });
-
+// ============
 // AUTH routes
+// ============
 // show sign up form
 app.get("/register", (req, res) => {
 	res.render('register.hbs');
@@ -124,10 +128,11 @@ app.get("/register", (req, res) => {
 
 // handle user sign up
 app.post("/register", (req, res) => {
-	User.register(new User({username: req.body.username}) , req.body.password, function(err, user){
+	var newUser = new User({username: req.body.username});
+	User.register(newUser , req.body.password, function(err, user){
 		if(err){
 			console.log(err);
-			return res.render("/register");
+			return res.render("./register");
 		}
 		passport.authenticate('local')(req, res, function(){
 			res.redirect("/ideas");
@@ -149,7 +154,7 @@ app.post("/login", passport.authenticate("local", {
 	// nothing to see here!
 });
 
-// logout
+// logout route
 app.get("/logout", (req, res) => {
 	req.logout();
 	res.redirect("/");
@@ -158,18 +163,19 @@ app.get("/logout", (req, res) => {
 // List all ideas
 
 app.get('/ideas', checkAuthentication, (req, res) => {
-	res.render('ideas.hbs');
+	console.log(req.user);
+	res.render('ideas.hbs', {currentUser: req.user});
 });
 
 // Show new idea form.
 
-app.get('/ideas/new', (req,res) => {
+app.get('/ideas/new', checkAuthentication, (req,res) => {
 	res.render('new_idea.hbs');
 });
 
 // Create a new idea, then redirect.
 
-app.post('/ideas', (req, res) => {	
+app.post('/ideas', checkAuthentication, (req, res) => {	
 	createIdeas(req.body);
 	res.send("Idea created, redirecting...");
 });
