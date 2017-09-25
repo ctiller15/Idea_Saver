@@ -9,7 +9,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const hbs = require('hbs');
 
 // Schemas and functions
-var ObjectID = require('mongodb').ObjectID;
+var ObjectID = require('../db/mongoose').Types.ObjectId
 const {Idea} = require('../models/idea.js');
 // Why does this work?
 const User = require('../models/user.js');
@@ -44,14 +44,24 @@ app.use(function(req, res, next){
 });
 
 // CREATE
-var createIdeas = function(reqBod, cb){
+var createIdeas = function(req, cb){
 	// var collection = db.collection('ideas');
 	// Inserting a document
+	// console.log(reqBod);
 	var idea = new Idea({
-		title: reqBod.title,
-		category: reqBod.category,
-		text: reqBod.text
+		title: req.body.title,
+		category: req.body.category,
+		text: req.body.text,
+		author: {
+			id: req.user._id,
+			username: req.user.username
+		}
 	});
+	// idea.author.push({
+	// 	id: req.user._id
+	// });
+	console.log(idea);
+	// console.log(reqBod.user._id);
 
 	// Promise isn't too useful without the response object.
 	idea.save().then((doc) => {
@@ -176,7 +186,7 @@ app.get('/ideas/new', checkAuthentication, (req,res) => {
 // Create a new idea, then redirect.
 
 app.post('/ideas', checkAuthentication, (req, res) => {	
-	createIdeas(req.body);
+	createIdeas(req);
 	res.send("Idea created, redirecting...");
 });
 
