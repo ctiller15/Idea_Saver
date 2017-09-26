@@ -174,7 +174,25 @@ app.get("/logout", (req, res) => {
 
 app.get('/ideas', checkAuthentication, (req, res) => {
 	console.log(req.user);
-	res.render('ideas.hbs', {currentUser: req.user});
+	var ideaObj = {
+		ideas: []
+	};
+	Idea.find({'author.id': req.user._id})
+	.then((idea) => {
+		console.log(ideaObj);
+		console.log("Success!");
+		ideaObj.ideas = idea;
+		console.log(ideaObj);
+		res.render("ideas.hbs", {ideaList: ideaObj});
+	}, (err) => {
+		console.log(err);
+		console.log("Failed!");
+		res.send("Failure!");
+	});
+	// console.log(ideaObj);
+	// //console.log(ideaObj.ideaList);
+	// // res.render('ideas.hbs', {currentUser: req.user, ideaList: ideaObj.ideaList});
+	// res.render("ideas.hbs", {ideaList: "Words!"});
 });
 
 // Show new idea form.
