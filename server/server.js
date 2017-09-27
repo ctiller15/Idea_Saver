@@ -78,7 +78,7 @@ var createIdeas = function(req, cb){
 }
 
 // READ
-var readIdeas = function(id, res, cb){
+var readIdeas = function(id, req, res, cb){
 	// reading a document
 	Idea.findOne({ "_id" : new ObjectID(id)}).then((idea) => {
 		if(idea){
@@ -86,6 +86,7 @@ var readIdeas = function(id, res, cb){
 			res.render("one_idea.hbs", {ideaObj: idea});
 		} else if (!idea){
 			console.log("idea not found");
+			res.redirect("/ideas");
 		}
 	}, (err) => {
 		console.log(err);
@@ -214,8 +215,8 @@ app.post('/ideas', checkAuthentication, (req, res) => {
 
 // Show info about one idea.
 
-app.get('/ideas/:id', (req, res) => {
-	readIdeas(req.params.id, res);
+app.get('/ideas/:id', checkAuthorization, (req, res) => {
+	readIdeas(req.params.id, req, res);
 	// res.send("This is the info on ONE idea.");
 });
 
@@ -244,6 +245,33 @@ function checkAuthentication(req, res, next){
 		res.redirect("/login");
 	}
 }
+
+function checkAuthorization(req, res, next){
+	// is user logged in
+	if(req.isAuthenticated()){
+		// reading a document
+		Idea.findOne({ "_id" : new ObjectID(req.params.id)}).then((idea) => {
+			if(idea){
+				// does user own idea?
+				if(idea.author.id.equals(req.user._id)){
+					next();
+				} else {
+					console.log("Not authorized!");
+					res.redirect("back");
+				}
+
+			} else if (!idea){
+				console.log("idea not found");
+				res.redirect("back");
+			}
+			}, (err) => {
+				console.log(err);
+			});
+		} else {
+			console.log("Gotta be logged in!");
+			res.redirect("back");
+		}
+	}
 
 app.listen(3000, function() {
 	console.log('listening on 3000')
