@@ -1,0 +1,13 @@
+{{> header}}
+
+{{!-- Contains the edit form for a single idea. --}}
+{{ ideaID }}
+
+<form action="./?_method=PUT" method="POST">
+	<input type="text" name="title" placeholder="new title">
+	<input type="text" name="category" placeholder="new category">
+	<input type="text" name="text" placeholder="new text">
+	<button>Update</button>
+</form>
+
+{{> footer}}

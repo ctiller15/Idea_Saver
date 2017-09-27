@@ -1,5 +1,6 @@
 // Libraries
 
+const methodOverride = require('method-override');
 const express = require('express');
 const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
@@ -17,6 +18,8 @@ const User = require('../models/user.js');
 const app = express();
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + './../views/partials');
+// Required to do PUT and DELETE requests.
+app.use(methodOverride('_method'));
 
 // Using our bodyParser
 app.use(bodyParser.json());
@@ -218,7 +221,7 @@ app.get('/ideas/:id', (req, res) => {
 
 // Edit form for one idea.
 app.get('/ideas/:id/edit', (req, res) => {
-	res.send("This is the edit form for one idea.");
+	res.render("edit.hbs", {ideaID: req.params.id});
 });
 
 // Update one idea.
