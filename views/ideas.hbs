@@ -7,6 +7,9 @@
 		<p>{{this.category}}</p>
 		<p>{{this.text}}</p>
 		<a href="/ideas/{{this._id}}">view idea</a>
+		<form action="/ideas/{{this._id}}/?_method=DELETE" method="POST">
+			<button>Delete</button>
+		</form>
 	</div>
 {{/each}}
 
