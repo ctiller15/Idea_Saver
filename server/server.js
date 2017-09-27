@@ -209,7 +209,7 @@ app.get('/ideas/new', checkAuthentication, (req,res) => {
 
 app.post('/ideas', checkAuthentication, (req, res) => {	
 	createIdeas(req);
-	res.send("Idea created, redirecting...");
+	res.redirect('/ideas/');
 });
 
 // Show info about one idea.
@@ -227,13 +227,13 @@ app.get('/ideas/:id/edit', (req, res) => {
 // Update one idea.
 app.put('/ideas/:id', (req, res) => {
 	updateIdeas(req.body, req.params.id);
-	res.send("This is the update route for one idea.");
+	res.redirect('/ideas');
 });
 
 // Delete the idea.
 app.delete('/ideas/:id', (req, res) => {
 	destroyIdeas(req.params.id);
-	res.send("This is the delete route for one idea.");
+	res.redirect('/ideas');
 });
 
 function checkAuthentication(req, res, next){
