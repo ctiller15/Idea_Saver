@@ -75,11 +75,12 @@ var createIdeas = function(req, cb){
 }
 
 // READ
-var readIdeas = function(id, cb){
+var readIdeas = function(id, res, cb){
 	// reading a document
 	Idea.findOne({ "_id" : new ObjectID(id)}).then((idea) => {
 		if(idea){
 			console.log(idea);
+			res.render("one_idea.hbs", {ideaObj: idea});
 		} else if (!idea){
 			console.log("idea not found");
 		}
@@ -211,8 +212,8 @@ app.post('/ideas', checkAuthentication, (req, res) => {
 // Show info about one idea.
 
 app.get('/ideas/:id', (req, res) => {
-	readIdeas(req.params.id);
-	res.send("This is the info on ONE idea.");
+	readIdeas(req.params.id, res);
+	// res.send("This is the info on ONE idea.");
 });
 
 // Edit form for one idea.

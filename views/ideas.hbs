@@ -2,10 +2,12 @@
 
 <h2>Welcome to the ideas page!</h2>
 {{#each ideaList.ideas }}
-	<h3>{{this.title}}</h3>
-	<p>{{this.category}}</p>
-	<p>{{this.text}}</p>
-	<a href="/ideas/{{this._id}}">{{this._id}}</a>
+	<div class="Idea">
+		<h3>{{this.title}}</h3>
+		<p>{{this.category}}</p>
+		<p>{{this.text}}</p>
+		<a href="/ideas/{{this._id}}">view idea</a>
+	</div>
 {{/each}}
 
 {{> footer}}
