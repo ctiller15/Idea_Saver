@@ -1,10 +1,12 @@
 {{> header}}
 
-<form action="/ideas/" method="POST">
-	<input type="text" name="title" placeholder="idea title" minlength="6" maxlength="100" required>
-	<input type="text" name="category" placeholder="idea category">
-	<input type="text" name="text" placeholder="idea text">
-	<button>submit</button>
-</form>
+<div class="container">
+	<form action="/ideas/" method="POST">
+		<input class="form-control" type="text" name="title" placeholder="idea title" minlength="6" maxlength="100" required>
+		<input class="form-control" type="text" name="category" placeholder="idea category">
+		<input class="form-control" type="text" name="text" placeholder="idea text">
+		<button class="btn btn-default btn-block">submit</button>
+	</form>
+</div>
 
 {{> footer}}

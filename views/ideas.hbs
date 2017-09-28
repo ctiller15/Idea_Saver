@@ -1,17 +1,24 @@
 {{> header}}
 
-<h2>Welcome to the ideas page!</h2>
-{{#each ideaList.ideas }}
-	<div class="Idea">
-		<h3>{{this.title}}</h3>
-		<p>{{this.category}}</p>
-		<p>{{this.text}}</p>
-		<a href="/ideas/{{this._id}}">view idea</a>
-		<a href="/ideas/{{this._id}}/edit">Edit idea</a>
-		<form action="/ideas/{{this._id}}/?_method=DELETE" method="POST">
-			<button>Delete</button>
-		</form>
-	</div>
-{{/each}}
+<div class="container">
+
+	<h1>My ideas</h1>
+	{{#each ideaList.ideas }}
+		<div class="Idea">
+			<h2>{{this.title}}</h2>
+			<p>Category: {{this.category}}</p>
+			<p>{{this.text}}</p>
+
+			<div class="row">
+				<a class="btn btn-default col-xs-4" href="/ideas/{{this._id}}">view idea</a>
+				<a class="btn btn-default col-xs-4" href="/ideas/{{this._id}}/edit">Edit idea</a>
+				<form class="col-xs-4" action="/ideas/{{this._id}}/?_method=DELETE" method="POST">
+					<button class="btn btn-danger">Delete</button>
+				</form>
+			</div>
+		</div>
+	{{/each}}
+
+</div>
 
 {{> footer}}

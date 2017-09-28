@@ -1,13 +1,17 @@
 {{> header}}
 
-<h1>Idea Saver</h1>
-<p>A place to store and keep track of all of your great ideas.</p>
+	<div class="container">
 
-{{#unless currentUser}}
-	<div>
-		<a href="/register">Register</a>
-		<a href="/login">Log In</a>
+		<h1>Idea Saver</h1>
+		<p>A place to store and keep track of all of your great ideas.</p>
+
+		{{#unless currentUser}}
+			<div>
+				<a href="/register">Register</a>
+				<a href="/login">Log In</a>
+			</div>
+		{{/unless}}
+
 	</div>
-{{/unless}}
 
 {{> footer}}

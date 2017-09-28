@@ -3,11 +3,14 @@
 {{!-- Contains the edit form for a single idea. --}}
 {{!-- {{ ideaID }}
  --}}
-<form action="./?_method=PUT" method="POST">
-	<input type="text" name="title" placeholder="new title" minlength="6" maxlength="100" required>
-	<input type="text" name="category" placeholder="new category">
-	<input type="text" name="text" placeholder="new text">
-	<button>Update</button>
-</form>
+
+<div class="container">
+	<form action="./?_method=PUT" method="POST">
+		<input class="form-control" type="text" name="title" placeholder="new title" minlength="6" maxlength="100" required>
+		<input class="form-control" type="text" name="category" placeholder="new category">
+		<input class="form-control" type="text" name="text" placeholder="new text">
+		<button class="btn btn-default btn-block">Update</button>
+	</form>
+</div>
 
 {{> footer}}
