@@ -1,17 +1,14 @@
 {{> header}}
 
-<h3>This is a single idea.</h3>
+<h2>This is a single idea.</h2>
 <div>
-	<ul>
-		<li>{{ideaObj.title}}</li>
-		<li>{{ideaObj.category}}</li>
-		<li>{{ideaObj.text}}</li>
-		<li><a href="/ideas/{{ideaObj._id}}/edit">Edit idea</a></li>
-		<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
-			<button>Delete</button>
-		</form>		
-
-	</ul>
+	<h3>{{ideaObj.title}}</h3>
+	<p>{{ideaObj.category}}</p>
+	<p>{{ideaObj.text}}</p>
+	<p><a href="/ideas/{{ideaObj._id}}/edit">Edit idea</a></p>
+	<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
+		<button>Delete</button>
+	</form>
 
 </div>
 

@@ -7,7 +7,7 @@
 		<p>{{this.category}}</p>
 		<p>{{this.text}}</p>
 		<a href="/ideas/{{this._id}}">view idea</a>
-		<li><a href="/ideas/{{this._id}}/edit">Edit idea</a></li>
+		<a href="/ideas/{{this._id}}/edit">Edit idea</a>
 		<form action="/ideas/{{this._id}}/?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>
