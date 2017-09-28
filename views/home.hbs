@@ -1,17 +1,17 @@
 {{> header}}
 
 	<div class="container">
+		<div class="well well-lg">
+			<h1 class="text-center">Idea Saver</h1>
+			<p class="text-center">A place to store and keep track of all of your great ideas.</p>
 
-		<h1>Idea Saver</h1>
-		<p>A place to store and keep track of all of your great ideas.</p>
-
-		{{#unless currentUser}}
-			<div>
-				<a href="/register">Register</a>
-				<a href="/login">Log In</a>
-			</div>
-		{{/unless}}
-
+			{{#unless currentUser}}
+				<div class="row">
+					<a class="pull-left btn btn-default" href="/register">Register</a>
+					<a class="pull-right btn btn-default" href="/login">Log In</a>
+				</div>
+			{{/unless}}
+		</div>
 	</div>
 
 {{> footer}}
