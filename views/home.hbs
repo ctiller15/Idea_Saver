@@ -3,9 +3,11 @@
 <h1>Idea Saver</h1>
 <p>A place to store and keep track of all of your great ideas.</p>
 
-<div>
-	<a href="/register">Register</a>
-	<a href="/login">Log In</a>
-</div>
+{{#unless currentUser}}
+	<div>
+		<a href="/register">Register</a>
+		<a href="/login">Log In</a>
+	</div>
+{{/unless}}
 
 {{> footer}}

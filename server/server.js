@@ -51,7 +51,7 @@ app.use(function(req, res, next){
 });
 
 // grabbing the public directory for use.
-app.use(express.static(__dirname + "./../public"));
+app.use(express.static("public"));
 
 // ======================
 // =====INDEX ROUTES=====
