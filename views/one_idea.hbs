@@ -7,6 +7,9 @@
 		<li>{{ideaObj.category}}</li>
 		<li>{{ideaObj.text}}</li>
 		<li><a href="/ideas/{{ideaObj._id}}/edit">Edit idea</a></li>
+		<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
+			<button>Delete</button>
+		</form>		
 
 	</ul>
 

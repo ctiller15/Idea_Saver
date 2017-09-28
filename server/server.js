@@ -221,18 +221,18 @@ app.get('/ideas/:id', checkAuthorization, (req, res) => {
 });
 
 // Edit form for one idea.
-app.get('/ideas/:id/edit', (req, res) => {
+app.get('/ideas/:id/edit', checkAuthorization, (req, res) => {
 	res.render("edit.hbs", {ideaID: req.params.id});
 });
 
 // Update one idea.
-app.put('/ideas/:id', (req, res) => {
+app.put('/ideas/:id', checkAuthorization, (req, res) => {
 	updateIdeas(req.body, req.params.id);
 	res.redirect('/ideas');
 });
 
 // Delete the idea.
-app.delete('/ideas/:id', (req, res) => {
+app.delete('/ideas/:id', checkAuthorization, (req, res) => {
 	destroyIdeas(req.params.id);
 	res.redirect('/ideas');
 });
