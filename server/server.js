@@ -50,6 +50,9 @@ app.use(function(req, res, next){
 	next();
 });
 
+// grabbing the public directory for use.
+app.use(express.static(__dirname + "./../public"));
+
 // ======================
 // =====INDEX ROUTES=====
 // ======================
