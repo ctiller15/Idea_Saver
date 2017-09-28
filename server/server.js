@@ -9,6 +9,10 @@ const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 const hbs = require('hbs');
 
+// Routes
+var indexRoutes = require('./routes/index.js');
+var ideaRoutes = require('./routes/ideas.js');
+
 // Schemas and functions
 var ObjectID = require('../db/mongoose').Types.ObjectId
 const {Idea} = require('../models/idea.js');
@@ -46,232 +50,15 @@ app.use(function(req, res, next){
 	next();
 });
 
-// CREATE
-var createIdeas = function(req, cb){
-	// var collection = db.collection('ideas');
-	// Inserting a document
-	// console.log(reqBod);
-	var idea = new Idea({
-		title: req.body.title,
-		category: req.body.category,
-		text: req.body.text,
-		author: {
-			id: req.user._id,
-			username: req.user.username
-		}
-	});
-	// idea.author.push({
-	// 	id: req.user._id
-	// });
-	console.log(idea);
-	// console.log(reqBod.user._id);
+// ======================
+// =====INDEX ROUTES=====
+// ======================
+app.use('/', indexRoutes);
 
-	// Promise isn't too useful without the response object.
-	idea.save().then((doc) => {
-		console.log(doc);
-		res.send(doc);
-	}, (err) => {
-		console.log(err);
-		res.status(400).send(err);
-	});
-
-}
-
-// READ
-var readIdeas = function(id, req, res, cb){
-	// reading a document
-	Idea.findOne({ "_id" : new ObjectID(id)}).then((idea) => {
-		if(idea){
-			console.log(idea);
-			res.render("one_idea.hbs", {ideaObj: idea});
-		} else if (!idea){
-			console.log("idea not found");
-			res.redirect("/ideas");
-		}
-	}, (err) => {
-		console.log(err);
-	});
-}
-
-// UPDATE
-var updateIdeas = function(reqBod, id, cb){
-	// updating a document
-	Idea.findOneAndUpdate({ "_id" : new ObjectID(id) }
-		, {$set: 
-			{	
-				title: reqBod.title,
-				category: reqBod.category,
-				text: reqBod.text
-			}
-		}
-		, {new: true}
-	).then((idea) => {
-		console.log(idea);
-	}, (err) => {
-		console.log(err);
-	});
-}
-
-// DESTROY
-var destroyIdeas = function(id, cb){
-	// deleting a document.
-	Idea.findOneAndRemove(
-		{ "_id" : new ObjectID(id) }
-	).then((idea) => {
-		console.log(idea);
-	}, (err) => {
-		console.log(err);
-	});
-}
-
-
-
-
-
-// Index
-
-app.get('/', (req, res) => {
-	res.render('home.hbs');
-});
-// ============
-// AUTH routes
-// ============
-// show sign up form
-app.get("/register", (req, res) => {
-	res.render('register.hbs');
-});
-
-// handle user sign up
-app.post("/register", (req, res) => {
-	var newUser = new User({username: req.body.username});
-	User.register(newUser , req.body.password, function(err, user){
-		if(err){
-			console.log(err);
-			return res.render("./register");
-		}
-		passport.authenticate('local')(req, res, function(){
-			res.redirect("/ideas");
-		});
-	});
-});
-
-// LOGIN routes
-// render login form
-app.get("/login", (req, res) => {
-	res.render('login.hbs');
-});
-
-// Login logic
-app.post("/login", passport.authenticate("local", {
-	successRedirect: "/ideas",
-	failureRedirect: "/login"
-}), (req, res) => {
-	// nothing to see here!
-});
-
-// logout route
-app.get("/logout", (req, res) => {
-	req.logout();
-	res.redirect("/");
-});
-
-// List all ideas
-
-app.get('/ideas', checkAuthentication, (req, res) => {
-	console.log(req.user);
-	var ideaObj = {
-		ideas: []
-	};
-	Idea.find({'author.id': req.user._id})
-	.then((idea) => {
-		console.log(ideaObj);
-		console.log("Success!");
-		ideaObj.ideas = idea;
-		console.log(ideaObj);
-		res.render("ideas.hbs", {ideaList: ideaObj});
-	}, (err) => {
-		console.log(err);
-		console.log("Failed!");
-		res.send("Failure!");
-	});
-	// console.log(ideaObj);
-	// //console.log(ideaObj.ideaList);
-	// // res.render('ideas.hbs', {currentUser: req.user, ideaList: ideaObj.ideaList});
-	// res.render("ideas.hbs", {ideaList: "Words!"});
-});
-
-// Show new idea form.
-
-app.get('/ideas/new', checkAuthentication, (req,res) => {
-	res.render('new_idea.hbs');
-});
-
-// Create a new idea, then redirect.
-
-app.post('/ideas', checkAuthentication, (req, res) => {	
-	createIdeas(req);
-	res.redirect('/ideas/');
-});
-
-// Show info about one idea.
-
-app.get('/ideas/:id', checkAuthorization, (req, res) => {
-	readIdeas(req.params.id, req, res);
-	// res.send("This is the info on ONE idea.");
-});
-
-// Edit form for one idea.
-app.get('/ideas/:id/edit', checkAuthorization, (req, res) => {
-	res.render("edit.hbs", {ideaID: req.params.id});
-});
-
-// Update one idea.
-app.put('/ideas/:id', checkAuthorization, (req, res) => {
-	updateIdeas(req.body, req.params.id);
-	res.redirect('/ideas');
-});
-
-// Delete the idea.
-app.delete('/ideas/:id', checkAuthorization, (req, res) => {
-	destroyIdeas(req.params.id);
-	res.redirect('/ideas');
-});
-
-function checkAuthentication(req, res, next){
-	if(req.isAuthenticated()){
-		// If user is logged in, returns true.
-		return next();
-	} else{
-		res.redirect("/login");
-	}
-}
-
-function checkAuthorization(req, res, next){
-	// is user logged in
-	if(req.isAuthenticated()){
-		// reading a document
-		Idea.findOne({ "_id" : new ObjectID(req.params.id)}).then((idea) => {
-			if(idea){
-				// does user own idea?
-				if(idea.author.id.equals(req.user._id)){
-					next();
-				} else {
-					console.log("Not authorized!");
-					res.redirect("back");
-				}
-
-			} else if (!idea){
-				console.log("idea not found");
-				res.redirect("back");
-			}
-			}, (err) => {
-				console.log(err);
-			});
-		} else {
-			console.log("Gotta be logged in!");
-			res.redirect("back");
-		}
-	}
+// ======================
+// =====IDEAS ROUTES=====
+// ======================
+app.use('/ideas', ideaRoutes);
 
 app.listen(3000, function() {
 	console.log('listening on 3000')
