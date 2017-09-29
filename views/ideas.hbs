@@ -2,7 +2,9 @@
 
 <div class="container">
 
-	<h1>My ideas</h1>
+	<h1 class="text-center">My ideas</h1>
+
+	{{#if ideaList.ideas}}
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			{{#group ideaList.ideas by="category"}}
 		  		<div class="panel panel-default">
@@ -19,8 +21,12 @@
 								<h2>{{ title }}</h2>
 								<p>{{ text }}</p>
 								<div class="row">
-									<a class="btn btn-default col-xs-4" href="/ideas/{{_id}}">view idea</a>
-									<a class="btn btn-default col-xs-4" href="/ideas/{{_id}}/edit">Edit idea</a>
+									<div class="col-xs-4">
+										<a class="btn btn-default" href="/ideas/{{_id}}">View idea</a>
+									</div>
+									<div class="col-xs-4">
+										<a class="btn btn-default" href="/ideas/{{_id}}/edit">Edit idea</a>
+									</div>
 									<form class="col-xs-4" action="/ideas/{{_id}}/?_method=DELETE" method="POST">
 										<button class="btn btn-danger">Delete</button>
 									</form>
@@ -31,6 +37,13 @@
 				</div>
 			{{/group}}
 		</div>
+	{{else}}
+		<div>
+			There are no ideas here yet. Add some!
+		</div>
+	{{/if}}
+
+	<a class="btn btn-default btn-block btn-lg" href="/ideas/new">New Idea</a>
 
 </div>
 

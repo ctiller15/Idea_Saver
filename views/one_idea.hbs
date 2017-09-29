@@ -6,8 +6,8 @@
 		<p class="text-center">{{ideaObj.category}}</p>
 		<p class="text-center">{{ideaObj.text}}</p>
 		<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit">Edit idea</a>
-		<form class="btn btn-danger pull-right" action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
-			<button>Delete</button>
+		<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
+			<button class="btn btn-danger pull-right">Delete</button>
 		</form>
 
 	</div>
