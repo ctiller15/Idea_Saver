@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require("passport");
 var User = require('../../models/user.js');
 
+var middleware = require('../helpers/middleware.js');
+
 // Index
 
 router.get('/', (req, res) => {
@@ -22,9 +24,11 @@ router.post("/register", (req, res) => {
 	User.register(newUser , req.body.password, function(err, user){
 		if(err){
 			console.log(err);
-			return res.render("./register");
+			req.flash("error", err);
+			return res.render("./register", {"error": err.message});
 		}
 		passport.authenticate('local')(req, res, function(){
+			req.flash("success", "successfully signed up.");
 			res.redirect("/ideas");
 		});
 	});
@@ -47,6 +51,7 @@ router.post("/login", passport.authenticate("local", {
 // logout route
 router.get("/logout", (req, res) => {
 	req.logout();
+	req.flash("success", "successfully logged out.")
 	res.redirect("/");
 });
 

@@ -10,10 +10,10 @@ var User = require('../../models/user.js');
 // importing functions
 var ObjectID = require('../../db/mongoose').Types.ObjectId;
 var CRUD = require('../helpers/CRUDfunctions.js');
+var middleware = require('../helpers/middleware.js');
 
 // List all ideas
-
-router.get('/', checkAuthentication, (req, res) => {
+router.get('/', middleware.checkAuthentication, (req, res) => {
 	console.log(req.user);
 	var ideaObj = {
 		ideas: []
@@ -37,76 +37,40 @@ router.get('/', checkAuthentication, (req, res) => {
 });
 
 // Show new idea form.
-
-router.get('/new', checkAuthentication, (req,res) => {
+router.get('/new', middleware.checkAuthentication, (req,res) => {
 	res.render('new_idea.hbs');
 });
 
 // Create a new idea, then redirect.
-
-router.post('/', checkAuthentication, (req, res) => {	
+router.post('/', middleware.checkAuthentication, (req, res) => {	
 	CRUD.createIdeas(req);
+	req.flash("success", "Successfully saved superb solution");
 	res.redirect('/ideas/');
 });
 
 // Show info about one idea.
-
-router.get('/:id', checkAuthorization, (req, res) => {
+router.get('/:id', middleware.checkAuthorization, (req, res) => {
 	CRUD.readIdeas(req.params.id, req, res);
 	// res.send("This is the info on ONE idea.");
 });
 
 // Edit form for one idea.
-router.get('/:id/edit', checkAuthorization, (req, res) => {
+router.get('/:id/edit', middleware.checkAuthorization, (req, res) => {
 	res.render("edit.hbs", {ideaID: req.params.id});
 });
 
 // Update one idea.
-router.put('/:id', checkAuthorization, (req, res) => {
+router.put('/:id', middleware.checkAuthorization, (req, res) => {
 	CRUD.updateIdeas(req.body, req.params.id);
+	req.flash("success", "Successfully updated idea.");
 	res.redirect('/ideas');
 });
 
 // Delete the idea.
-router.delete('/:id', checkAuthorization, (req, res) => {
+router.delete('/:id', middleware.checkAuthorization, (req, res) => {
 	CRUD.destroyIdeas(req.params.id);
+	req.flash("success", "Successfully deleted idea.");
 	res.redirect('/ideas');
 });
-
-function checkAuthentication(req, res, next){
-	if(req.isAuthenticated()){
-		// If user is logged in, returns true.
-		return next();
-	} else{
-		res.redirect("/login");
-	}
-}
-
-function checkAuthorization(req, res, next){
-	// is user logged in
-	if(req.isAuthenticated()){
-		// reading a document
-		Idea.findOne({ "_id" : new ObjectID(req.params.id)}).then((idea) => {
-			if(idea){
-				// does user own idea?
-				if(idea.author.id.equals(req.user._id)){
-					next();
-				} else {
-					console.log("Not authorized!");
-					res.redirect("back");
-				}
-
-			} else if (!idea){
-				console.log("idea not found");
-				res.redirect("back");
-			}
-			}, (err) => {
-				console.log(err);
-			});
-		} else {
-			console.log("Gotta be logged in!");
-			res.redirect("back");
-		}
-	}
 
 module.exports = router

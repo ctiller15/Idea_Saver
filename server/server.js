@@ -4,6 +4,7 @@ const methodOverride = require('method-override');
 const express = require('express');
 const {mongoose} = require('../db/mongoose');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -24,12 +25,16 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + './../views/partials');
 // Required to do PUT and DELETE requests.
 app.use(methodOverride('_method'));
+// Required for flash messaging
+app.use(flash());
 
 // Using our bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// ======================
 // PASSPORT CONFIGURATION
+// ======================
 app.use(require('express-session')({
 	secret: 'Stanley is quiet and Golden is energetic',
 	resave: false,
@@ -47,6 +52,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 
