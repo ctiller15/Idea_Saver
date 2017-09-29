@@ -1,14 +1,18 @@
 {{> header}}
 
 <div class="container">
-	<div>
-		<h2 class="text-center">{{ideaObj.title}}</h2>
-		<p class="text-center">{{ideaObj.category}}</p>
-		<p class="text-center">{{ideaObj.text}}</p>
-		<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit">Edit idea</a>
-		<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
-			<button class="btn btn-danger pull-right">Delete</button>
-		</form>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		<h2 class="text-center panel-title">{{ideaObj.title}}</h2>
+		</div>
+		<div class="panel-body">
+			<p class="text-center">{{ideaObj.category}}</p>
+			<p class="text-center">{{ideaObj.text}}</p>
+			<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit">Edit idea</a>
+			<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
+				<button class="btn btn-danger pull-right">Delete</button>
+			</form>
+		</div>
 
 	</div>
 </div>

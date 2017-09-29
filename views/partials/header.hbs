@@ -4,6 +4,7 @@
 	<title>Idea Saver App</title>
   <meta name=viewport content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 	{{!-- <h1>{{ currentUser.username}}</h1> --}}
@@ -42,13 +43,13 @@
 
 <div class="container">
   {{#if success}}
-  <div class="alert alert-success" role="alert">
+  <div class="alert alert-success alert-dismissible" role="alert">
     {{success}}
   </div>
   {{/if}}
 
   {{#if error}}
-  <div class="alert alert-danger" role="alert">
+  <div class="alert alert-danger alert-dismissible" role="alert">
     {{error}}
   </div>
   {{/if}}
