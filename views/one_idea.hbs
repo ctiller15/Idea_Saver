@@ -1,15 +1,16 @@
 {{> header}}
 
-<h2>This is a single idea.</h2>
-<div>
-	<h3>{{ideaObj.title}}</h3>
-	<p>{{ideaObj.category}}</p>
-	<p>{{ideaObj.text}}</p>
-	<p><a href="/ideas/{{ideaObj._id}}/edit">Edit idea</a></p>
-	<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
-		<button>Delete</button>
-	</form>
+<div class="container">
+	<div>
+		<h2 class="text-center">{{ideaObj.title}}</h2>
+		<p class="text-center">{{ideaObj.category}}</p>
+		<p class="text-center">{{ideaObj.text}}</p>
+		<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit">Edit idea</a>
+		<form class="btn btn-danger pull-right" action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
+			<button>Delete</button>
+		</form>
 
+	</div>
 </div>
 
 {{> footer}}

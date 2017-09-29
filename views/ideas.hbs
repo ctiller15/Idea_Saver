@@ -3,21 +3,34 @@
 <div class="container">
 
 	<h1>My ideas</h1>
-	{{#each ideaList.ideas }}
-		<div class="Idea">
-			<h2>{{this.title}}</h2>
-			<p>Category: {{this.category}}</p>
-			<p>{{this.text}}</p>
-
-			<div class="row">
-				<a class="btn btn-default col-xs-4" href="/ideas/{{this._id}}">view idea</a>
-				<a class="btn btn-default col-xs-4" href="/ideas/{{this._id}}/edit">Edit idea</a>
-				<form class="col-xs-4" action="/ideas/{{this._id}}/?_method=DELETE" method="POST">
-					<button class="btn btn-danger">Delete</button>
-				</form>
-			</div>
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			{{#group ideaList.ideas by="category"}}
+		  		<div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingOne">
+				      	<h4 class="panel-title">
+				        	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{#spaceRemove value}}{{/spaceRemove}}" aria-expanded="true" aria-controls="{{#spaceRemove value}}{{/spaceRemove}}">
+				          		{{ value }}
+				        	</a>
+				      	</h4>
+				    </div>
+				    <div id="{{#spaceRemove value}}{{/spaceRemove}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				      	<div class="panel-body">
+							{{#each items}}
+								<h2>{{ title }}</h2>
+								<p>{{ text }}</p>
+								<div class="row">
+									<a class="btn btn-default col-xs-4" href="/ideas/{{_id}}">view idea</a>
+									<a class="btn btn-default col-xs-4" href="/ideas/{{_id}}/edit">Edit idea</a>
+									<form class="col-xs-4" action="/ideas/{{_id}}/?_method=DELETE" method="POST">
+										<button class="btn btn-danger">Delete</button>
+									</form>
+								</div>
+							{{/each}}
+				      	</div>
+				    </div>
+				</div>
+			{{/group}}
 		</div>
-	{{/each}}
 
 </div>
 

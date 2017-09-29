@@ -14,26 +14,18 @@ var middleware = require('../helpers/middleware.js');
 
 // List all ideas
 router.get('/', middleware.checkAuthentication, (req, res) => {
-	console.log(req.user);
 	var ideaObj = {
 		ideas: []
 	};
 	Idea.find({'author.id': req.user._id})
 	.then((idea) => {
-		console.log(ideaObj);
-		console.log("Success!");
 		ideaObj.ideas = idea;
-		console.log(ideaObj);
 		res.render("ideas.hbs", {ideaList: ideaObj});
 	}, (err) => {
 		console.log(err);
-		console.log("Failed!");
-		res.send("Failure!");
+		req.flash("error", err);
+		res.redirect("/ideas");
 	});
-	// console.log(ideaObj);
-	// //console.log(ideaObj.ideaList);
-	// // res.render('ideas.hbs', {currentUser: req.user, ideaList: ideaObj.ideaList});
-	// res.render("ideas.hbs", {ideaList: "Words!"});
 });
 
 // Show new idea form.
@@ -43,15 +35,14 @@ router.get('/new', middleware.checkAuthentication, (req,res) => {
 
 // Create a new idea, then redirect.
 router.post('/', middleware.checkAuthentication, (req, res) => {	
-	CRUD.createIdeas(req);
+	CRUD.createIdeas(req, res);
 	req.flash("success", "Successfully saved superb solution");
-	res.redirect('/ideas/');
+	res.redirect('/ideas');
 });
 
 // Show info about one idea.
 router.get('/:id', middleware.checkAuthorization, (req, res) => {
 	CRUD.readIdeas(req.params.id, req, res);
-	// res.send("This is the info on ONE idea.");
 });
 
 // Edit form for one idea.

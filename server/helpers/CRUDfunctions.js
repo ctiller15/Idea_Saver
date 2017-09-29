@@ -9,7 +9,7 @@ const User = require('../../models/user.js');
 
 
 // CREATE
-var createIdeas = function(req, cb){
+var createIdeas = function(req, res, cb){
 	// var collection = db.collection('ideas');
 	// Inserting a document
 	// console.log(reqBod);
@@ -22,19 +22,14 @@ var createIdeas = function(req, cb){
 			username: req.user.username
 		}
 	});
-	// idea.author.push({
-	// 	id: req.user._id
-	// });
-	console.log(idea);
-	// console.log(reqBod.user._id);
 
 	// Promise isn't too useful without the response object.
 	idea.save().then((doc) => {
 		console.log(doc);
-		res.send(doc);
 	}, (err) => {
 		console.log(err);
-		res.status(400).send(err);
+		req.flash("error", err);
+		res.status(400).redirect("/ideas");
 	});
 
 }
@@ -48,10 +43,13 @@ var readIdeas = function(id, req, res, cb){
 			res.render("one_idea.hbs", {ideaObj: idea});
 		} else if (!idea){
 			console.log("idea not found");
+			req.flash("error", "idea not found");
 			res.redirect("/ideas");
 		}
 	}, (err) => {
 		console.log(err);
+		req.flash("error", err);
+		res.redirect("/ideas");
 	});
 }
 

@@ -9,6 +9,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 const hbs = require('hbs');
+const groupBy = require('handlebars-group-by');
 
 // Routes
 var indexRoutes = require('./routes/index.js');
@@ -59,6 +60,41 @@ app.use(function(req, res, next){
 
 // grabbing the public directory for use.
 app.use(express.static("public"));
+
+//HBS helper
+hbs.registerHelper(groupBy(hbs));
+
+hbs.registerHelper('spaceRemove', function(str){
+	str = str.replace(/\s/g, '');
+	return str;
+});
+// hbs.registerHelper('test', function(obj, options){
+// 	var cats = [];
+// 	var sortedIdeas = {};
+// 	var ret = {};
+// 	// Collect a list of all categories.
+// 	for(variable in obj){
+// 		if(cats.indexOf(obj[variable].category) === -1){
+// 			cats.push(obj[variable].category);
+// 			sortedIdeas[obj[variable].category] = [];		
+// 		}
+// 	}
+// 	// return JSON.stringify(sortedIdeas);
+
+// 	cats.forEach(function(category){
+// 		for(variable in obj){
+// 			if(category === obj[variable].category){
+// 				sortedIdeas[category].push(obj[variable]);
+// 			}
+// 		}
+// 	});
+// 	for(var i = 0; i < sortedIdeas.length; i++){
+// 		ret = ret + sortedIdeas[i];
+// 	}
+// 	return JSON.stringify(sortedIdeas);
+// 	// return options.fn(JSON.stringify(sortedIdeas));
+
+// });
 
 // ======================
 // =====INDEX ROUTES=====
