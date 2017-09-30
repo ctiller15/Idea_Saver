@@ -1,0 +1,48 @@
+/*Color palette: 
+	Base: #A578BB;
+	second: #B22DCB;
+
+	Accent: #FCFE9E;
+	second: #E3FB33;
+	second-triad: #98F131;
+				  #FFE734;
+
+	White: #FFF;
+	Dark gray: #514a54;
+	second: 4d4050;
+
+	Light gray: #ede7f1;
+	second: f3e5f5;
+*/
+
+h1{
+	color: white;
+}
+
+.panel-default>.panel-heading{
+	background-color: #f3e5f5;
+}
+
+.panel-title{
+	font-weight: bold;
+	font-size: 2em;
+}
+
+h2{
+	font-weight: bold;
+}
+
+.panel{
+	background-color: white;
+}
+
+.btn-default{
+	background: #FEFCFE;
+}
+
+.btn-lg{
+	background: #FFF188;
+	font-size: 2.5em;
+	font-weight: bold;
+	margin-bottom: .2em;
+}

@@ -1,0 +1,28 @@
+/*Color palette: 
+	Base: #A578BB;
+	second: #B22DCB;
+
+	Accent: #FCFE9E;
+	second: #E3FB33;
+	second-triad: #98F131;
+				  #FFE734;
+
+	White: #FFF;
+	Dark gray: #514a54;
+	second: 4d4050;
+
+	Light gray: #ede7f1;
+	second: f3e5f5;
+*/
+
+h1{
+	font-weight: bold;
+	color: white;
+}
+
+.btn-primary{
+	font-weight: bold;
+	background-color: #FFEC5B;
+	color: #4d4050;
+	border-color: #FFE206;
+}

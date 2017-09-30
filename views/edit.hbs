@@ -1,5 +1,5 @@
 {{> header}}
-
+<link rel="stylesheet" type="text/css" href="/css/new.css">
 {{> navbar}}
 
 {{!-- Contains the edit form for a single idea. --}}
@@ -7,6 +7,9 @@
  --}}
 
 <div class="container">
+
+	<h2 class="text-center">Edit your idea</h2>
+
 	<form action="./?_method=PUT" method="POST">
 		<div class="form-group">
 			<input class="form-control" type="text" name="title" placeholder="new title" minlength="6" maxlength="100" required>
