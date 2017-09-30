@@ -1,3 +1,28 @@
+/*Color palette: 
+	Base: #A578BB;
+	second: #B22DCB;
+
+	Accent: #FCFE9E;
+	second: #E3FB33;
+	second-triad: #98F131;
+				  #FFE734;
+
+	White: #FFF;
+	Dark gray: #514a54;
+	second: 4d4050;
+
+	Light gray: #ede7f1;
+	second: f3e5f5;
+*/
+body{
+	/*background: #B22DCB;*/
+	/*Try as a gradient?*/
+	background: #B22DCB;
+	/*color: #514a54;*/
+	color: #4D4050;
+	font-family: "Open Sans";
+}
+
 .centering{
 	display: flex;
 	flex-direction: column;
@@ -5,3 +30,14 @@
 	height: 80vh;
 }
 
+.jumbotron{
+/*	background: #ede7f1;*/
+	background: #f3e5f5;
+}
+
+.btn-default{
+/*	background: #FCFE9E;*/
+	background: #FFEC5B;
+	color: #4D4050;
+	font-weight: bold;
+}
