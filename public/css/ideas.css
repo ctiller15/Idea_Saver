@@ -46,3 +46,7 @@ h2{
 	font-weight: bold;
 	margin-bottom: .2em;
 }
+
+.fa.fa-trash-o, .fa.fa-eye, .fa.fa-pencil{
+	font-size: 2em;
+}

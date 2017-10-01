@@ -10,9 +10,9 @@
 		<div class="panel-body">
 			<p class="text-left category">{{ideaObj.category}}</p>
 			<p class="text-left text">{{ideaObj.text}}</p>
-			<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit">Edit idea</a>
+			<a class="btn btn-default pull-left" href="/ideas/{{ideaObj._id}}/edit"><span class="hidden-xs">Edit idea</span> <i class="fa fa-pencil" aria-hidden="true"></i></a>
 			<form action="/ideas/{{ideaObj._id}}/?_method=DELETE" method="POST">
-				<button class="btn btn-danger pull-right">Delete</button>
+				<button class="btn btn-danger pull-right"><span class="hidden-xs">Delete</span> <i class="fa fa-trash-o" aria-hidden="true"></i></button>
 			</form>
 		</div>
 
