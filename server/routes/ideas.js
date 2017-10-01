@@ -47,7 +47,21 @@ router.get('/:id', middleware.checkAuthorization, (req, res) => {
 
 // Edit form for one idea.
 router.get('/:id/edit', middleware.checkAuthorization, (req, res) => {
-	res.render("edit.hbs", {ideaID: req.params.id});
+	Idea.findOne({ "_id" : new ObjectID(req.params.id)}).then((idea) => {
+		if(idea){
+			console.log(idea);
+				res.render("edit.hbs", {ideaObj: idea});
+		} else if (!idea){
+			console.log("idea not found");
+			req.flash("error", "idea not found");
+			res.redirect("/ideas");
+		}
+	}, (err) => {
+		console.log(err);
+		req.flash("error", err);
+		res.redirect("/ideas");
+	});
+
 });
 
 // Update one idea.

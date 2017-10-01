@@ -12,13 +12,13 @@
 
 	<form action="./?_method=PUT" method="POST">
 		<div class="form-group">
-			<input class="form-control" type="text" name="title" placeholder="new title" minlength="6" maxlength="100" required>
+			<input class="form-control" type="text" name="title" placeholder="Old title:{{ideaObj.title}}" minlength="6" maxlength="100" value="{{ideaObj.title}}" required>
 		</div>
 		<div class="form-group">
-			<input class="form-control" type="text" name="category" placeholder="new category">
+			<input class="form-control" type="text" name="category" placeholder="Old category:{{ideaObj.category}}" value="{{ideaObj.category}}">
 		</div>
 		<div class="form-group">
-			<textarea class="form-control" type="textarea" name="text" rows="5" placeholder="new text" required></textarea>
+			<textarea class="form-control" type="textarea" name="text" rows="5" placeholder="Old text:{{ideaObj.text}}" required>{{ideaObj.text}}</textarea>
 		</div>
 		<button class="btn btn-default btn-block btn-lg">Update Idea</button>
 	</form>

@@ -68,6 +68,10 @@ hbs.registerHelper('spaceRemove', function(str){
 	str = str.replace(/\s/g, '');
 	return str;
 });
+
+hbs.registerHelper('truncate', function(str){
+	return str.substring(0, 150) + "...";
+});
 // hbs.registerHelper('test', function(obj, options){
 // 	var cats = [];
 // 	var sortedIdeas = {};

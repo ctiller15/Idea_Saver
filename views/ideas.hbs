@@ -21,7 +21,7 @@
 				      	<div class="panel-body">
 							{{#each items}}
 								<h2>{{ title }}</h2>
-								<p>{{ text }}</p>
+								<p>{{truncate text}}</p>
 								<div class="row">
 									<div class="col-xs-4">
 										<a class="btn btn-default" href="/ideas/{{_id}}">View idea</a>
@@ -41,7 +41,7 @@
 			{{/group}}
 		</div>
 	{{else}}
-		<div class="well well-lg">
+		<div class="jumbotron">
 			<p class="text-center">There are no ideas here yet. Add some!</p>
 		</div>
 	{{/if}}
