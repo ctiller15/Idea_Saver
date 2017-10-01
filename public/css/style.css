@@ -27,7 +27,7 @@ body{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	height: 80vh;
+	height: 73vh;
 }
 
 .jumbotron{
@@ -37,9 +37,17 @@ body{
 
 .btn-default{
 /*	background: #FCFE9E;*/
-	background: #FFEC5B;
+	background-color: #FFEC5B;
 	color: #4D4050;
 	font-weight: bold;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-primary, .btn-default:active:focus, .btn-default:active:hover{
+	background-color: #FFF188;
+}
+
+.pull-left, .pull-right{
+	margin: 0 3px;
 }
 
 .navbar{

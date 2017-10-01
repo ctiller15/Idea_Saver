@@ -10,14 +10,14 @@
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			{{#group ideaList.ideas by="category"}}
 		  		<div class="panel panel-default">
-				    <div class="panel-heading" role="tab" id="headingOne">
+				    <div class="panel-heading" role="tab" id="{{spaceRemove value}}1">
 				      	<h4 class="panel-title">
-				        	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{#spaceRemove value}}{{/spaceRemove}}" aria-expanded="true" aria-controls="{{#spaceRemove value}}{{/spaceRemove}}">
+				        	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{spaceRemove value}}" aria-expanded="true" aria-controls="{{spaceRemove value}}">
 				          		{{ value }}
 				        	</a>
 				      	</h4>
 				    </div>
-				    <div id="{{#spaceRemove value}}{{/spaceRemove}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				    <div id="{{spaceRemove value}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{spaceRemove value}}1">
 				      	<div class="panel-body">
 							{{#each items}}
 								<h2>{{ title }}</h2>
