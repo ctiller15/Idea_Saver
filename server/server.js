@@ -70,7 +70,12 @@ hbs.registerHelper('spaceRemove', function(str){
 });
 
 hbs.registerHelper('truncate', function(str){
-	return str.substring(0, 150) + "...";
+	if(str.length >= 150){
+		return str.substring(0, 147) + "...";
+	} else{
+		return str;
+	}
+
 });
 // hbs.registerHelper('test', function(obj, options){
 // 	var cats = [];

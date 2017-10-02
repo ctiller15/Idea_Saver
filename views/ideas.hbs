@@ -19,22 +19,26 @@
 				    </div>
 				    <div id="{{spaceRemove value}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{spaceRemove value}}1">
 				      	<div class="panel-body">
-							{{#each items}}
-								<h2 class="title">{{ title }}</h2>
-								<p class="text">{{truncate text}}</p>
-								<div class="row">
-									<div class="col-xs-3 col-md-4">
-										<a class="btn btn-default" href="/ideas/{{_id}}"><span class="hidden-xs">View idea </span><i class="fa fa-eye" aria-hidden="true"></i></a>
+				      		<div class="row">
+								{{#each items}}
+									<div class="col-lg-6">
+									<h2 class="title">{{ title }}</h2>
+									<p class="text">{{truncate text}}</p>
+									<div class="row">
+										<div class="col-xs-3 col-md-4">
+											<a class="btn btn-default" href="/ideas/{{_id}}"><span class="hidden-xs">View idea </span><i class="fa fa-eye" aria-hidden="true"></i></a>
+										</div>
+										<div class="col-xs-3 col-md-4">
+											<a class="btn btn-default" href="/ideas/{{_id}}/edit"><span class="hidden-xs">Edit idea </span><i class="fa fa-pencil" aria-hidden="true"></i></a>
+										</div>
+										<form class="col-xs-6 col-md-4" action="/ideas/{{_id}}/?_method=DELETE" method="POST">
+											<button class="btn btn-danger pull-right"><span class="hidden-xs">Delete </span><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+										</form>
 									</div>
-									<div class="col-xs-3 col-md-4">
-										<a class="btn btn-default" href="/ideas/{{_id}}/edit"><span class="hidden-xs">Edit idea </span><i class="fa fa-pencil" aria-hidden="true"></i></a>
+									<hr>
 									</div>
-									<form class="col-xs-6 col-md-4" action="/ideas/{{_id}}/?_method=DELETE" method="POST">
-										<button class="btn btn-danger pull-right"><span class="hidden-xs">Delete </span><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-									</form>
-								</div>
-								<hr>
-							{{/each}}
+								{{/each}}
+							</div>
 				      	</div>
 				    </div>
 				</div>

@@ -89,3 +89,39 @@ h2{
 		font-size: 3em;
 	}
 }
+
+@media screen and (min-width: 1024px){
+	h1.text-center{
+		font-size: 4em;
+	}
+
+	h4.panel-title{
+		font-size: 2em;
+	}
+
+	.title{
+		font-size: 2em;
+	}
+
+	.text{
+		font-size: 1.5em;
+		height: 100px;
+	}
+
+	.fa.fa-eye{
+		font-size: 1em;
+	}
+
+	.fa.fa-pencil{
+		font-size: 1em;
+	}
+
+	.fa.fa-trash-o{
+		font-size: 1em;
+	}
+
+	.btn-block.btn-lg{
+		width: 50%;
+		margin: 0 auto;
+	}
+}

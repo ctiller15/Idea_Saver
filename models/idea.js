@@ -11,6 +11,7 @@ var ideaSchema = mongoose.Schema({
 			type: String,
 			maxlength: 100,
 			required: true,
+			lowercase: true,
 			trim: true
 		},
 	text: {type: String,

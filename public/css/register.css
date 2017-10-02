@@ -57,3 +57,27 @@ h1{
 		font-size: 4em;
 	}
 }
+
+@media screen and (min-width: 1024px){
+	h1.text-center{
+		font-size: 3em;
+	}
+
+	.alert{
+		margin: 0 30%;
+	}
+
+	form{
+		width: 40%;
+		margin: 0 auto;
+	}
+
+	.form-control{
+		height: 30px;
+		font-size: 1.5em;
+	}
+
+	.btn-primary{
+		font-size: 2em;
+	}
+}
