@@ -70,8 +70,8 @@ hbs.registerHelper('spaceRemove', function(str){
 });
 
 hbs.registerHelper('truncate', function(str){
-	if(str.length >= 150){
-		return str.substring(0, 147) + "...";
+	if(str.length >= 100){
+		return str.substring(0, 97) + "...";
 	} else{
 		return str;
 	}

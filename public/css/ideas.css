@@ -99,13 +99,17 @@ h2{
 		font-size: 2em;
 	}
 
+	.col-lg-6{
+		border-right: 1px solid #EEE;
+	}
+
 	.title{
 		font-size: 2em;
 	}
 
 	.text{
 		font-size: 1.5em;
-		height: 100px;
+		height: 150px;
 	}
 
 	.fa.fa-eye{
@@ -123,5 +127,10 @@ h2{
 	.btn-block.btn-lg{
 		width: 50%;
 		margin: 0 auto;
+		margin-bottom: 5px;
+	}
+
+	.btn.btn-default.btn-block{
+		font-size: 2em;
 	}
 }

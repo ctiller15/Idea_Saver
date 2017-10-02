@@ -68,3 +68,35 @@ body{
 		font-size: 3em;
 	}
 }
+
+@media screen and (min-width: 1024px){
+	.panel{
+		width: 70%;
+		margin: 0 auto;
+	}
+
+	.panel-title{
+		font-size: 3em;
+	}
+	.category{
+		font-size: 1em;
+	}
+
+	.text{
+		min-height: 100px;
+		font-size: 1.5em;
+	}
+
+	.hidden-xs{
+		font-size: .7em;
+	}
+
+	.fa.fa-pencil{
+		font-size: .7em;
+	}
+
+	.fa.fa-trash-o{
+		font-size: .7em;
+	}
+
+}

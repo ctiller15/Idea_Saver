@@ -32,3 +32,29 @@ h2{
 		height: 300px;
 	}
 }
+
+@media screen and (min-width: 1024px){
+	h2{
+		font-size: 3em;
+	}
+
+	form{
+		width: 70%;
+		margin: 0 auto;
+	}
+
+	.form-control{
+		height: 60px;
+		font-size: 1.5em;
+	}
+
+	textarea.form-control{
+		height: 270px;
+	}
+
+	.btn-lg.btn-default{
+		width: 50%;
+		margin: 0 auto;
+		font-size: 2em;
+	}
+}

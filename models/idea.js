@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var ideaSchema = mongoose.Schema({
 	title: {type: String,
-			minlength: 6,
 			maxlength: 100,
 			required: true,
 			trim: true
