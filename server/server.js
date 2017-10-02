@@ -11,6 +11,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const hbs = require('hbs');
 const groupBy = require('handlebars-group-by');
 
+const port = process.env.PORT || 3000;
+
 // Routes
 var indexRoutes = require('./routes/index.js');
 var ideaRoutes = require('./routes/ideas.js');
@@ -115,6 +117,6 @@ app.use('/', indexRoutes);
 // ======================
 app.use('/ideas', ideaRoutes);
 
-app.listen(3000, function() {
-	console.log('listening on 3000')
+app.listen(port, function() {
+	console.log(`Server is up on port ${port}`);
 });
