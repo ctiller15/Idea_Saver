@@ -8,7 +8,7 @@ var middlewareObj = {
 			// If user is logged in, returns true.
 			return next();
 		} else{
-			req.flash("error", "Please log in First");
+			req.flash("error", "Please log in first.");
 			res.redirect("/login");
 		}
 	},
@@ -37,7 +37,7 @@ var middlewareObj = {
 				});
 			} else {
 				console.log("Gotta be logged in!");
-				req.flash("error", "Please log in first");
+				req.flash("error", "Please log in first.");
 				res.redirect("/login");
 			}
 		}

@@ -36,8 +36,6 @@ router.get('/new', middleware.checkAuthentication, (req,res) => {
 // Create a new idea, then redirect.
 router.post('/', middleware.checkAuthentication, (req, res) => {	
 	CRUD.createIdeas(req, res);
-	req.flash("success", "Successfully saved superb solution");
-	res.redirect('/ideas');
 });
 
 // Show info about one idea.
@@ -66,16 +64,14 @@ router.get('/:id/edit', middleware.checkAuthorization, (req, res) => {
 
 // Update one idea.
 router.put('/:id', middleware.checkAuthorization, (req, res) => {
-	CRUD.updateIdeas(req.body, req.params.id);
-	req.flash("success", "Successfully updated idea.");
-	res.redirect('/ideas');
+	CRUD.updateIdeas(req, res);
 });
 
 // Delete the idea.
 router.delete('/:id', middleware.checkAuthorization, (req, res) => {
-	CRUD.destroyIdeas(req.params.id);
-	req.flash("success", "Successfully deleted idea.");
-	res.redirect('/ideas');
+	CRUD.destroyIdeas(req, res);
+	// req.flash("success", "Successfully deleted idea.");
+	// res.redirect('/ideas');
 });
 
 module.exports = router
