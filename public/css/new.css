@@ -6,3 +6,18 @@ h2{
 .btn-lg{
 	font-size: 2.5em;
 }
+
+@media screen and (min-width: 762px){
+	h2{
+		font-size: 4em;
+	}
+
+	.form-control{
+		height: 70px;
+		font-size: 2em;
+	}
+
+	textarea.form-control{
+		height: 300px;
+	}
+}

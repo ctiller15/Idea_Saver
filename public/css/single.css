@@ -43,3 +43,17 @@
 .fa.fa-trash-o{
 	font-size: 2em;
 }
+
+@media screen and (min-width: 762px){
+	.panel-title{
+		font-size: 5em;
+	}
+
+	.category{
+		font-size: 2.5em;
+	}
+
+	.text{
+		font-size: 3em;
+	}
+}

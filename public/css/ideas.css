@@ -50,3 +50,31 @@ h2{
 .fa.fa-trash-o, .fa.fa-eye, .fa.fa-pencil{
 	font-size: 2em;
 }
+
+@media screen and (min-width: 762px){
+	.alert{
+		font-size: 2em;
+	}
+
+	.panel-title{
+		font-size: 4em;
+	}
+
+	.title{
+		font-size: 3em;
+	}
+
+	.text{
+		font-size: 2em;
+	}
+
+	.btn.btn-default{
+		font-size: 1.5em;
+	}
+	.btn.btn-danger{
+		font-size: 1.5em;
+	}
+	.btn.btn-default.btn-block{
+		font-size: 3em;
+	}
+}
