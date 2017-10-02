@@ -1,9 +1,23 @@
 var mongoose = require('mongoose');
 
 var ideaSchema = mongoose.Schema({
-	title: String,
-	category: String,
-	text: String,
+	title: {type: String,
+			minlength: 6,
+			maxlength: 100,
+			required: true,
+			trim: true
+		},
+	category: {
+			type: String,
+			maxlength: 100,
+			required: true,
+			trim: true
+		},
+	text: {type: String,
+			maxlength: 2000,
+			required: true,
+			trim: true
+		},
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,

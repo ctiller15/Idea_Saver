@@ -15,10 +15,10 @@
 			<input class="form-control" type="text" name="title" placeholder="Old title:{{ideaObj.title}}" minlength="6" maxlength="100" value="{{ideaObj.title}}" required>
 		</div>
 		<div class="form-group">
-			<input class="form-control" type="text" name="category" placeholder="Old category:{{ideaObj.category}}" value="{{ideaObj.category}}">
+			<input class="form-control" type="text" name="category" placeholder="Old category:{{ideaObj.category}}" maxlength="100" value="{{ideaObj.category}}">
 		</div>
 		<div class="form-group">
-			<textarea class="form-control" type="textarea" name="text" rows="5" placeholder="Old text:{{ideaObj.text}}" required>{{ideaObj.text}}</textarea>
+			<textarea class="form-control" type="textarea" name="text" rows="5" placeholder="Old text:{{ideaObj.text}}" maxlength="2000" required>{{ideaObj.text}}</textarea>
 		</div>
 		<button class="btn btn-default btn-block btn-lg">Update Idea <i class="fa fa-lightbulb-o" aria-hidden="true"></i></button>
 	</form>
