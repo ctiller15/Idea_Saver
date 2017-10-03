@@ -25,7 +25,7 @@ const User = require('../models/user.js');
 
 const app = express();
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + './../views/partials');
+hbs.registerPartials(__dirname + '/../views/partials');
 // Required to do PUT and DELETE requests.
 app.use(methodOverride('_method'));
 // Required for flash messaging
